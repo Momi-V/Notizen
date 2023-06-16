@@ -21,4 +21,18 @@ EOL
 VAR=$(VAR=${VAR@Q}; echo "${VAR:2:-1}")
 sed -i "s+iface enp8s0 inet dhcp+$VAR+g" /etc/network/interfaces
 
+VAR=$(cat <<'EOL'
+
+iface enp8s0 inet6 manual
+auto vmbr0
+iface vmbr0 inet6 dhcp
+        bridge-ports enp8s0
+        bridge-stp off
+        bridge-fd 0
+EOL
+)
+
+VAR=$(VAR=${VAR@Q}; echo "${VAR:2:-1}")
+sed -i "s+iface enp8s0 inet6 dhcp+$VAR+g" /etc/network/interfaces
+
 cat /etc/network/interfaces
