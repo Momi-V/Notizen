@@ -6,11 +6,13 @@ sed -n '1h;1!H;${g;s/iface vmbr0.*10.1/iface vmbr0 inet dhcp/;p;}' /etc/network/
 VAR=$(cat <<'EOL'
 
 iface enp9s0 inet manual
+        ovs_type OVSPort
+        ovs_bridge vmbr0
+
 auto vmbr0
 iface vmbr0 inet dhcp
-        bridge-ports enp9s0
-        bridge-stp off
-        bridge-fd 0
+        ovs_type OVSBridge
+        ovs_ports enp8s0
 
 EOL
 )
