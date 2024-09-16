@@ -1,5 +1,5 @@
 services:
-  reGen:
+  regen:
     build: ./build
     container_name: reGen
     tty: true
