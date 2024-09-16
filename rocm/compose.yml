@@ -1,0 +1,13 @@
+services:
+  reGen:
+#    image: rocm/rocm-terminal:latest
+    image: ubuntu:24.04
+    container_name: reGen
+    tty: true
+    group_add:
+      - video
+    volumes:
+      - ./reGen/:/home/rocm-user/horde-worker-reGen/:rw
+    devices:
+      - /dev/kfd
+      - /dev/dri
