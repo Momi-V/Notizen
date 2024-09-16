@@ -7,4 +7,5 @@ RUN apt update && apt full-upgrade -y && apt autopurge -y; \
     apt install -y ./amdgpu-install*all.deb; \
     amdgpu-install -y --usecase=rocm --no-dkms
 
-ADD ./reGen.bash
+WORKDIR /home/rocm-user
+ADD ./reGen.bash reGen.bash
