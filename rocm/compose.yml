@@ -1,7 +1,6 @@
 services:
   reGen:
-#    image: rocm/rocm-terminal:latest
-    image: ubuntu:24.04
+    build: ./build
     container_name: reGen
     tty: true
     group_add:
