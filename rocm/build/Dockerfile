@@ -1,11 +1,35 @@
-FROM rocm/rocm-terminal:latest
+FROM rocm/rocm-terminal:6.0.2
 
-USER root
-RUN apt update && apt full-upgrade -y && apt autopurge -y; \
-    apt install -y curl git nano wget; \
-    apt install -y libjemalloc2; \
-    apt install -y rocm
+ARG DEBIAN_FRONTEND=noninteractive
 
-USER rocm-user
-WORKDIR /home/rocm-user
-ADD ./reGen.bash reGen.bash
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get install -y --no-install-recommends \
+    python3.11 \
+    python3-pip \
+    python3-venv \
+    libgl1 \
+    git \
+    rocm
+
+RUN git clone https://github.com/Haidra-Org/horde-worker-reGen.git && \
+    cd /horde-worker-reGen && \
+    python3.11 -m pip install --upgrade pip && \
+    python3 -m venv venv && \
+    . venv/bin/activate && \
+    python -m pip install --upgrade pip && \
+    python -m pip install -r /horde-worker-reGen/requirements.rocm.txt -U --extra-index-url https://download.pytorch.org/whl/rocm6.0 && \
+    python -m pip install opencv-python-headless -U && \
+    python -m pip uninstall -y pynvml nvidia-ml-py && \
+    python -m pip cache purge
+
+RUN /horde_worker_regen/amd_go_fast/install_amd_go_fast.sh
+
+CMD cd /horde-worker-reGen && \
+    git pull && \
+    . venv/bin/activate && \
+    python -m pip install -r requirements.rocm.txt -U && \
+    python -m pip uninstall -y pynvml nvidia-ml-py && \
+    python download_models.py -e && \
+    python run_worker.py -e
