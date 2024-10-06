@@ -6,8 +6,8 @@ services:
     group_add:
       - video
     volumes:
-      - ./models/:/home/rocm-user/horde-worker-reGen/models/
-      - ./bridgeData.yaml:/home/rocm-user/horde-worker-reGen/bridgeData.yaml:ro
+      - ./models/:/horde-worker-reGen/models/
+      - ./bridgeData.yaml:/horde-worker-reGen/bridgeData.yaml:ro
     devices:
       - /dev/kfd
       - /dev/dri
