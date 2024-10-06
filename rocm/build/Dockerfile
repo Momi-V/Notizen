@@ -1,4 +1,4 @@
-FROM rocm/rocm-terminal:6.0.2
+FROM rocm/rocm-terminal:6.1.2
 
 USER root
 WORKDIR /
@@ -19,6 +19,7 @@ RUN apt-get update && \
 
 RUN git clone https://github.com/Haidra-Org/horde-worker-reGen.git && \
     cd /horde-worker-reGen && \
+    git checkout raw-png && \
     python3.11 -m venv venv && \
     . venv/bin/activate && \
     python -m pip install --upgrade pip && \
@@ -41,5 +42,5 @@ CMD cd /horde-worker-reGen && \
     else \
       ./horde_worker_regen/amd_go_fast/install_amd_go_fast.sh & \
     fi && \
-    python download_models.py && \
-    python run_worker.py
+    python download_models.py $(if [ ! -e bridgeData.yaml ]; then echo -e; fi) && \
+    python run_worker.py $(if [ ! -e bridgeData.yaml ]; then echo -e; fi)
