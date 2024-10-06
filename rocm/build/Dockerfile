@@ -10,15 +10,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3.11 \
     python3-pip \
-    python3-venv \
+    python3.11-dev \
+    python3.11-venv \
+    python3.11-distutils \
     libgl1 \
     git \
     rocm
 
 RUN git clone https://github.com/Haidra-Org/horde-worker-reGen.git && \
     cd /horde-worker-reGen && \
-    python3.11 -m pip install --upgrade pip && \
-    python3 -m venv venv && \
+    python3.11 -m venv venv && \
     . venv/bin/activate && \
     python -m pip install --upgrade pip && \
     python -m pip install -r /horde-worker-reGen/requirements.rocm.txt -U --extra-index-url https://download.pytorch.org/whl/rocm6.0 && \
@@ -26,12 +27,19 @@ RUN git clone https://github.com/Haidra-Org/horde-worker-reGen.git && \
     python -m pip uninstall -y pynvml nvidia-ml-py && \
     python -m pip cache purge
 
-RUN /horde_worker_regen/amd_go_fast/install_amd_go_fast.sh
-
 CMD cd /horde-worker-reGen && \
     git pull && \
     . venv/bin/activate && \
     python -m pip install -r requirements.rocm.txt -U && \
     python -m pip uninstall -y pynvml nvidia-ml-py && \
-    python download_models.py -e && \
-    python run_worker.py -e
+    # wait for install_amd_go_fast.sh on first install, run it in the background on later installs
+    # go_fast can not be compiled during image build, because it is hardware dependent
+    # this is ugly, but waiting 15 min on each startup is also bad
+    if [ ! -e /first_start.mark ]; then \
+      ./horde_worker_regen/amd_go_fast/install_amd_go_fast.sh && \
+      touch /first_start.mark; \
+    else \
+      ./horde_worker_regen/amd_go_fast/install_amd_go_fast.sh & \
+    fi && \
+    python download_models.py && \
+    python run_worker.py
