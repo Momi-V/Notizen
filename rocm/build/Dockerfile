@@ -1,5 +1,7 @@
 FROM rocm/rocm-terminal:6.0.2
 
+USER root
+WORKDIR /
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
