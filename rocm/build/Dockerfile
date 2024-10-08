@@ -13,7 +13,6 @@ RUN apt-get update && \
     python3.11-dev \
     python3.11-venv \
     python3.11-distutils \
-    libjemalloc2 \
     libgl1 \
     git \
     rocm
@@ -31,7 +30,6 @@ RUN git clone https://github.com/HPPinata/horde-worker-reGen.git && \
 CMD cd /horde-worker-reGen && \
     git pull && \
     . venv/bin/activate && \
-    export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libjemalloc.so.2" && \
     python -m pip install -r requirements.txt -U && \
     python -m pip uninstall -y pynvml nvidia-ml-py && \
     ./horde_worker_regen/amd_go_fast/install_amd_go_fast.sh && \
