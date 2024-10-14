@@ -1,4 +1,4 @@
-FROM rocm/rocm-terminal:6.1.2
+FROM rocm/rocm-terminal:latest
 
 USER root
 WORKDIR /
