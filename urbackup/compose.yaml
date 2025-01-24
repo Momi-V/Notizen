@@ -1,0 +1,25 @@
+services:
+  urbackup:
+    container_name: urbackup
+    build:
+      context: https://github.com/HPPinata/urbackup-server-docker.git#patch-1
+      args:
+        - ZFS=1
+        - TARGETPLATFORM=linux/amd64
+    privileged: True
+    restart: unless-stopped
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/Berlin
+      - ZFS_IMAGE=bigSpin/UrBackup/images
+      - ZFS_FILES=bigSpin/UrBackup/files
+    volumes:
+      - database:/var/urbackup
+      - /mnt/bigSpin/UrBackup:/backups
+    network_mode: host
+    devices:
+      - /dev/zfs:/dev/zfs
+
+volumes:
+  database:
