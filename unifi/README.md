@@ -20,8 +20,8 @@ ssh root@unifi "curl -o /etc/systemd/system/NAT66.service https://raw.githubuser
 curl -o /etc/systemd/system/update-npt6.bash    https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.bash
 curl -o /etc/systemd/system/update-npt6.service https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.service
 curl -o /etc/systemd/system/update-npt6.timer   https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.timer
-sudo systemctl daemon-reload
-sudo systemctl enable --now update-npt6.timer
+systemctl daemon-reload
+systemctl enable --now update-npt6.timer
 ```
 
 ### Install (ssh)
@@ -29,6 +29,6 @@ sudo systemctl enable --now update-npt6.timer
 ssh root@unifi "curl -o /etc/systemd/system/update-npt6.bash    https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.bash; \
 curl -o /etc/systemd/system/update-npt6.service https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.service; \
 curl -o /etc/systemd/system/update-npt6.timer   https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/unifi/update-npt6.timer; \
-sudo systemctl daemon-reload; \
-sudo systemctl enable --now update-npt6.timer"
+systemctl daemon-reload; \
+systemctl enable --now update-npt6.timer"
 ```
