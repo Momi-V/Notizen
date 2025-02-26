@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Set the correct production network interface
+# Set the network interface
 EXT_IF="eth4"
 
 # Temporary file to store the last known prefix
@@ -27,12 +27,12 @@ PREFIX_LENGTH="${IPV6_RAW##*/}"
 # Expand the IPv6 address to its full form
 IPV6_FULL=$(expand_ipv6 "${IPV6_RAW%%/*}")
 
-# Extract the first **4** hextets to fully capture a /56 or /60 prefix
+# Extract the first 4 hextets to fully capture a /56 or /60 prefix
 IPV6_PREFIX=$(echo "$IPV6_FULL" | cut -d':' -f1-4)
 
-# Construct the external prefix dynamically
+# Construct the CIDR notation dynamically
 EXTERNAL_PREFIX="$IPV6_PREFIX::/$PREFIX_LENGTH"
-INTERNAL_PREFIX="2001:db8::/$PREFIX_LENGTH"
+INTERNAL_PREFIX="2001:db8:11::/$PREFIX_LENGTH"
 
 # Check if the prefix has changed
 if [[ -f "$LAST_PREFIX_FILE" ]]; then
