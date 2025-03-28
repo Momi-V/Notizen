@@ -16,8 +16,8 @@ cat <<'EOL' > update.bash
 cd /var/pangolin
 docker compose pull
 docker compose build --pull
-docker compose up -dV
-docker system prune -a -f --volumes
+docker compose up -d
+docker system prune -a -f
 EOL
 cat update.bash
 chmod +x update.bash
