@@ -1,4 +1,9 @@
+swapoff -a
+umount /dev/vda*
+wipefs -a /dev/vda*
+
 cat <<'EOL' | sfdisk /dev/vda
+label: gpt
 size=3M type=21686148-6449-6E6F-744E-656564454649
 size=509M
 size=40G
@@ -16,6 +21,6 @@ mkdir -p /mnt/boot
 mount /dev/disk/by-label/NIXBOOT /mnt/boot
 
 nixos-generate-config --root /mnt
-wget -O /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/configuration.nix
+curl -O /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/configuration.nix
 cd /mnt
 nixos-install
