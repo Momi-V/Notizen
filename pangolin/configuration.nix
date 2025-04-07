@@ -42,10 +42,22 @@
     docker-compose
   ];
 
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  system.autoUpgrade = {
+    enable = true;
+    dates = "weekly";
+    persistent = true;
+    allowReboot = true;
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;
+    options = "--delete-older-than 30d";
+  };
 
   # Enable cron service
   services.cron = {
