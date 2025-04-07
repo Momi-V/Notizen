@@ -1,8 +1,8 @@
 cat <<'EOL' | sfdisk /dev/vda
-size=3M type=4
+size=3M type=21686148-6449-6E6F-744E-656564454649
 size=509M
 size=40G
-+ type=swap
+type=swap
 EOL
 
 mkfs.fat -F 32 /dev/vda2
