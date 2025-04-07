@@ -9,6 +9,11 @@ wget -O installer "https://github.com/fosrl/pangolin/releases/latest/download/in
 read -p "DynDNS Domain: " ZONE
 read -p "Auth Token: " TK
 
+cat <<EOL > .cron-env
+ZONE=$ZONE
+TK=$TK
+EOL
+
 ./dyndns.bash
 ./installer
 
@@ -26,12 +31,3 @@ docker system prune -a -f
 EOL
 cat update.bash
 chmod +x update.bash
-
-cat <<EOL | crontab -
-SHELL=/bin/bash
-BASH_ENV=/etc/profile
-
-*/1 * * * * ZONE=( $ZONE ) TK=$TK /var/pangolin/dyndns.bash
-@reboot /var/pangolin/update.bash
-EOL
-crontab -l
