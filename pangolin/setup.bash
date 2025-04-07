@@ -22,5 +22,7 @@ mount /dev/disk/by-label/NIXBOOT /mnt/boot
 
 nixos-generate-config --root /mnt
 curl -O /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/configuration.nix
+
 cd /mnt
+nix-channel --update
 nixos-install
