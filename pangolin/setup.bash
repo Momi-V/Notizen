@@ -15,8 +15,7 @@ EOL
 sleep 1
 
 echo "Formatting Filesystems"
-mkfs.fat -F 32 /dev/vda2
-fatlabel /dev/vda2 NIXBOOT
+mkfs.fat -F 32 -n NIXBOOT /dev/vda2
 mkfs.btrfs /dev/vda3 -L NIXROOT
 mkswap /dev/vda4
 sleep 1
