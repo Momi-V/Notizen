@@ -3,6 +3,12 @@
 mkdir /var/pangolin
 cd /var/pangolin
 
+git config --global init.defaultBranch main
+read -p "Git E-Mail: " MAIL
+read -p "Git Username: " NAME
+git config --global user.email "$MAIL"
+git config --global user.name "$NAME"
+
 git init
 
 wget -O dyndns.bash "https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/dyndns.bash" && chmod +x ./dyndns.bash
