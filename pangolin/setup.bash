@@ -7,8 +7,8 @@ sleep 1
 echo "Creating Partitions"
 cat <<'EOL' | sfdisk /dev/vda
 label: gpt
-size=3M type=21686148-6449-6E6F-744E-656564454649
-size=509M
+size=1M type=21686148-6449-6E6F-744E-656564454649
+size=511M
 size=40G
 type=swap
 EOL
