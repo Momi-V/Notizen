@@ -17,8 +17,8 @@ wget -O installer "https://github.com/fosrl/pangolin/releases/latest/download/in
 read -p "DynDNS Domain: " ZONE
 read -p "Auth Token: " TK
 
-cat <<EOL > .cron-env
-ZONE=$ZONE
+cat <<EOL > .dyndns.env
+ZONE=( $ZONE )
 TK=$TK
 EOL
 
