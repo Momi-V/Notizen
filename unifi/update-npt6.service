@@ -5,5 +5,5 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/systemd/system/update-npt6.bash
+ExecStart=bash -c '/etc/systemd/system/update-npt6.bash'
 RemainAfterExit=no
