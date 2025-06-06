@@ -2,7 +2,7 @@
 
 ## NixOS LiveBoot
 ```
-curl -L https://github.com/nix-community/nixos-images/releases/latest/download/nixos-kexec-installer-noninteractive-x86_64-linux.tar.gz | tar -xzf- -C /root
+curl -L https://github.com/nix-community/nixos-images/releases/latest/download/nixos-kexec-installer-x86_64-linux.tar.gz | tar -xzf- -C /root
 /root/kexec/run
 ```
 
