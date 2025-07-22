@@ -59,8 +59,11 @@
     allowReboot = true;
   };
 
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "weekly" ];
+  nix.optimise = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;
+  };
 
   nix.gc = {
     automatic = true;
