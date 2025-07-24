@@ -21,6 +21,7 @@
   # Use latest Kernel and zSwap
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "zswap.enabled=1" "zswap.max_pool_percent=50" "zswap.compressor=zstd" "zswap.zpool=zsmalloc" ];
+  boot.kernel.sysctl = { "net.ipv6.bindv6only" = 1; };
 
   networking.hostName = "pangolin"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -78,18 +79,18 @@
     systemCronJobs = [
       "*/1 * * * * root . /etc/profile; bash /var/pangolin/dyndns.bash"
       "@reboot root . /etc/profile; bash /var/pangolin/update.bash"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:3478,bind=::,fork TCP4:localhost:3478"
-      "@reboot root . /etc/profile; socat UDP6-RECVFROM:3478,bind=::,fork UDP4-SENDTO:localhost:3478"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:28967,bind=::,fork TCP4:localhost:28967"
-      "@reboot root . /etc/profile; socat UDP6-RECVFROM:28967,bind=::,fork UDP4-SENDTO:localhost:28967"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:28968,bind=::,fork TCP4:localhost:28968"
-      "@reboot root . /etc/profile; socat UDP6-RECVFROM:28968,bind=::,fork UDP4-SENDTO:localhost:28968"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:3478,fork TCP4:localhost:3478"
+      "@reboot root . /etc/profile; socat UDP6-LISTEN:3478,fork UDP4:localhost:3478"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:28967,fork TCP4:localhost:28967"
+      "@reboot root . /etc/profile; socat UDP6-LISTEN:28967,fork UDP4:localhost:28967"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:28968,fork TCP4:localhost:28968"
+      "@reboot root . /etc/profile; socat UDP6-LISTEN:28968,fork UDP4:localhost:28968"
     ];
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 3478 28967 28968 ];
+  networking.firewall.allowedUDPPorts = [ 3478 28967 28968 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
