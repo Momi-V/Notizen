@@ -21,7 +21,6 @@
   # Use latest Kernel and zSwap
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "zswap.enabled=1" "zswap.max_pool_percent=50" "zswap.compressor=zstd" "zswap.zpool=zsmalloc" ];
-  boot.kernel.sysctl = { "net.ipv6.bindv6only" = 1; };
 
   networking.hostName = "pangolin"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -39,19 +38,18 @@
     keyMap = "de";
   };
 
-  virtualisation.docker.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    curl wget dnsutils socat
+    curl wget dnsutils
     docker-compose
     git
   ];
 
-  # Enable the OpenSSH daemon.
+  # System services.
   services.openssh.enable = true;
   services.qemuGuest.enable = true;
+  virtualisation.docker.enable = true;
 
   system.autoUpgrade = {
     enable = true;
@@ -79,12 +77,6 @@
     systemCronJobs = [
       "*/1 * * * * root . /etc/profile; bash /var/pangolin/dyndns.bash"
       "@reboot root . /etc/profile; bash /var/pangolin/update.bash"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:3478,fork TCP4:localhost:3478"
-      "@reboot root . /etc/profile; socat UDP6-LISTEN:3478,fork UDP4:localhost:3478"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:28967,fork TCP4:localhost:28967"
-      "@reboot root . /etc/profile; socat UDP6-LISTEN:28967,fork UDP4:localhost:28967"
-      "@reboot root . /etc/profile; socat TCP6-LISTEN:28968,fork TCP4:localhost:28968"
-      "@reboot root . /etc/profile; socat UDP6-LISTEN:28968,fork UDP4:localhost:28968"
     ];
   };
 
