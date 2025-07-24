@@ -78,12 +78,12 @@
     systemCronJobs = [
       "*/1 * * * * root . /etc/profile; bash /var/pangolin/dyndns.bash"
       "@reboot root . /etc/profile; bash /var/pangolin/update.bash"
-      "@reboot socat TCP6-LISTEN:3478,fork TCP4:localhost:3478"
-      "@reboot socat UDP6-RECVFROM:3478,fork UDP4-SENDTO:localhost:3478"
-      "@reboot socat TCP6-LISTEN:28967,fork TCP4:localhost:28967"
-      "@reboot socat UDP6-RECVFROM:28967,fork UDP4-SENDTO:localhost:28967"
-      "@reboot socat TCP6-LISTEN:28968,fork TCP4:localhost:28968"
-      "@reboot socat UDP6-RECVFROM:28968,fork UDP4-SENDTO:localhost:28968"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:3478,fork TCP4:localhost:3478"
+      "@reboot root . /etc/profile; socat UDP6-RECVFROM:3478,fork UDP4-SENDTO:localhost:3478"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:28967,fork TCP4:localhost:28967"
+      "@reboot root . /etc/profile; socat UDP6-RECVFROM:28967,fork UDP4-SENDTO:localhost:28967"
+      "@reboot root . /etc/profile; socat TCP6-LISTEN:28968,fork TCP4:localhost:28968"
+      "@reboot root . /etc/profile; socat UDP6-RECVFROM:28968,fork UDP4-SENDTO:localhost:28968"
     ];
   };
 
