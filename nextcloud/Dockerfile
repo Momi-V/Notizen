@@ -9,7 +9,8 @@ ENV REMOTEDIR
 ENV LOCALDIR
 
 ADD ./sync.bash /sync.bash
+RUN chmod +x /sync.bash
 
 RUN apt update && apt install -y nextcloud-desktop-cmd
 
-ENTRYPOINT ["bash", "/sync.bash"]
+ENTRYPOINT [ "/sync.bash" ]
