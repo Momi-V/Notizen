@@ -1,0 +1,14 @@
+services:
+  nextcloud-sync:
+    build: https://github.com/HPPinata/Notizen:nextcloud
+    container_name: nextcloud-sync
+    volumes:
+      - /HOSTPATH:/CONTAINERPATH
+    environment:
+      - LOCALDIR=( "FOLDER/ONE" "FOLDER/TWO" "ETC" )
+      - REMOTEDIR=( "FOLDER/ONE" "FOLDER/TWO" "ETC" )
+      - USERNAME="USERNAME"
+      - PASSWORD="PASSWORD"
+      - SERVER="Nextcloud URL"
+      - SLEEP="300"
+    restart: unless-stopped
