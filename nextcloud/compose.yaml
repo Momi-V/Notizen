@@ -7,8 +7,9 @@ services:
     environment:
       - LOCALDIR=( "FOLDER/ONE" "FOLDER/TWO" "ETC" )
       - REMOTEDIR=( "FOLDER/ONE" "FOLDER/TWO" "ETC" )
-      - USERNAME="USERNAME"
-      - PASSWORD="PASSWORD"
-      - SERVER="Nextcloud URL"
-      - SLEEP="300"
+      - USERNAME=USERNAME
+      - PASSWORD=PASSWORD
+      - SERVER=my.nextcloud.host
+      - SLEEP=300
+      - TZ=ETC/UTC
     restart: unless-stopped
