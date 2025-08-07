@@ -22,6 +22,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "zswap.enabled=1" "zswap.max_pool_percent=50" "zswap.compressor=zstd" "zswap.zpool=zsmalloc" ];
 
+  # Networking
   networking.hostName = "pangolin"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -51,11 +52,12 @@
   services.qemuGuest.enable = true;
   virtualisation.docker.enable = true;
 
+  # Nix stuff
   system.autoUpgrade = {
     enable = true;
     dates = "weekly";
     persistent = true;
-    allowReboot = true;
+    allowReboot = false;
   };
 
   nix.optimise = {
