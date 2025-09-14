@@ -4,7 +4,7 @@ services:
       args:
         - ZFS=1
         - TARGETPLATFORM=linux/amd64
-      context: https://github.com/HPPinata/urbackup-server-docker.git#patch-1
+      context: https://github.com/Momi-V/urbackup-server-docker.git#patch-1
     container_name: urbackup
     devices:
       - /dev/zfs:/dev/zfs

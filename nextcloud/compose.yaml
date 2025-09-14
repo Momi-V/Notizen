@@ -1,6 +1,6 @@
 services:
   nextcloud-sync:
-    build: https://github.com/HPPinata/Notizen.git#main:/nextcloud
+    build: https://github.com/Momi-V/Notizen.git#main:/nextcloud
     container_name: nextcloud-sync
     volumes:
       - /HOSTPATH:/CONTAINERPATH

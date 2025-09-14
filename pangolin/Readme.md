@@ -8,12 +8,12 @@ curl -L https://github.com/nix-community/nixos-images/releases/latest/download/n
 
 ## Install NixOS
 ```
-curl -O https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/setup.bash
+curl -O https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/pangolin/setup.bash
 bash setup.bash
 ```
 
 ## Setup Pangolin with autoupdate on reboot
 ```
-wget https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/install.bash
+wget https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/pangolin/install.bash
 bash install.bash
 ```

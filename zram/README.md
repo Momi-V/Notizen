@@ -6,7 +6,7 @@ A small service for setting up zswap variables
 dnf install -y tuned
 systemctl enable --now tuned
 
-curl -O https://raw.githubusercontent.com/HPPinata/Notizen/main/zram/tuned.conf
+curl -O https://raw.githubusercontent.com/Momi-V/Notizen/main/zram/tuned.conf
 mkdir /etc/tuned/zswap
 mv tuned.conf /etc/tuned/zswap
 cat /etc/tuned/zswap/tuned.conf
@@ -19,9 +19,9 @@ tuned-adm profile zswap
 ```
 mkdir /opt/zswap && cd /opt/zswap
 
-curl -O https://raw.githubusercontent.com/HPPinata/Notizen/main/zram/zswap.bash
+curl -O https://raw.githubusercontent.com/Momi-V/Notizen/main/zram/zswap.bash
 chmod +x zswap.bash
 
-curl -O https://raw.githubusercontent.com/HPPinata/Notizen/main/zram/zswap.service
+curl -O https://raw.githubusercontent.com/Momi-V/Notizen/main/zram/zswap.service
 systemctl enable --now /opt/zswap/zswap.service
 ```

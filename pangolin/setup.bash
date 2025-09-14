@@ -29,7 +29,7 @@ sleep 1
 
 echo "Generating and Fetching config"
 nixos-generate-config --root /mnt
-curl -o /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/HPPinata/Notizen/refs/heads/main/pangolin/configuration.nix
+curl -o /mnt/etc/nixos/configuration.nix https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/pangolin/configuration.nix
 sleep 1
 
 echo "Installing NixOS"

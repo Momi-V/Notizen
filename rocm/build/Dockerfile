@@ -17,7 +17,7 @@ RUN apt-get update && \
     git \
     rocm
 
-RUN git clone https://github.com/HPPinata/horde-worker-reGen.git && \
+RUN git clone https://github.com/Momi-V/horde-worker-reGen.git && \
     cd /horde-worker-reGen && \
     python3.11 -m venv venv && \
     . venv/bin/activate && \
