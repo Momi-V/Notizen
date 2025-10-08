@@ -32,7 +32,7 @@ IPV6_PREFIX=$(echo "$IPV6_FULL" | cut -d':' -f1-4)
 
 # Construct the CIDR notation dynamically
 EXTERNAL_PREFIX="$IPV6_PREFIX::/$PREFIX_LENGTH"
-INTERNAL_PREFIX="2001:db8:11::/$PREFIX_LENGTH"
+INTERNAL_PREFIX="fd66:db8:11::/$PREFIX_LENGTH"
 
 # Check if the prefix has changed
 if [[ -f "$LAST_PREFIX_FILE" ]]; then
