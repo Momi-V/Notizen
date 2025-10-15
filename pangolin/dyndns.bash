@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .dyndns.env
+source $(dirname $0)/.dyndns.env
 
 ipv4=$(curl -4 api4.ipify.org)
 ipv6=$(curl -6 api6.ipify.org)
