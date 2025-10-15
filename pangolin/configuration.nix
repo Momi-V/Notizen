@@ -52,6 +52,10 @@
   services.qemuGuest.enable = true;
   virtualisation.docker.enable = true;
 
+  # FHS compatibility
+  services.envfs.enable = true;
+  programs.nix-ld.enable = true;
+
   # Nix stuff
   system.autoUpgrade = {
     enable = true;
