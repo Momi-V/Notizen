@@ -81,8 +81,8 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/1 * * * * root . /etc/profile; bash /var/pangolin/dyndns.bash"
-      "@reboot root . /etc/profile; bash /var/pangolin/update.bash"
+      "*/1 * * * * root . /etc/profile; /var/pangolin/dyndns.bash"
+      "@reboot root . /etc/profile; /var/pangolin/update.bash"
     ];
   };
 
