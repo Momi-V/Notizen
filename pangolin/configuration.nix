@@ -61,7 +61,7 @@
     enable = true;
     dates = "weekly";
     persistent = true;
-    allowReboot = false;
+    allowReboot = true;
   };
 
   nix.optimise = {
