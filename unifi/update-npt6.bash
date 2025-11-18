@@ -59,7 +59,7 @@ if [[ -n "$LAST_PREFIX" ]]; then
 fi
 
 # Apply updated NPTv6 translation rules
-ip6tables -t nat -A PREROUTING -d $EXTERNAL_PREFIX -j NETMAP --to $INTERNAL_PREFIX
-ip6tables -t nat -A POSTROUTING -s $INTERNAL_PREFIX -j NETMAP --to $EXTERNAL_PREFIX
+ip6tables -t nat -I PREROUTING 0 -d $EXTERNAL_PREFIX -j NETMAP --to $INTERNAL_PREFIX
+ip6tables -t nat -I POSTROUTING 0 -s $INTERNAL_PREFIX -j NETMAP --to $EXTERNAL_PREFIX
 
 echo "Updated NPTv6 rules successfully!"
