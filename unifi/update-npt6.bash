@@ -54,12 +54,12 @@ modprobe ip6t_NPT
 
 # Remove only the old NPT rules before applying new ones
 if [[ -n "$LAST_PREFIX" ]]; then
-    ip6tables -t mangle -D PREROUTING -d $LAST_PREFIX -j NPT --to $INTERNAL_PREFIX 2>/dev/null
-    ip6tables -t mangle -D POSTROUTING -s $INTERNAL_PREFIX -j NPT --to $LAST_PREFIX 2>/dev/null
+    ip6tables -t mangle -D PREROUTING --src-prefix $LAST_PREFIX -j DNPT --dst-prefix $INTERNAL_PREFIX 2>/dev/null
+    ip6tables -t mangle -D POSTROUTING --src-prefix $INTERNAL_PREFIX -j SNPT --dst-prefix $LAST_PREFIX 2>/dev/null
 fi
 
 # Apply updated NPTv6 translation rules
-ip6tables -t mangle -I PREROUTING 0 -d $EXTERNAL_PREFIX -j NPT --to $INTERNAL_PREFIX
-ip6tables -t mangle -I POSTROUTING 0 -s $INTERNAL_PREFIX -j NPT --to $EXTERNAL_PREFIX
+ip6tables -t mangle -A PREROUTING --src-prefix $EXTERNAL_PREFIX -j DNPT --dst-prefix $INTERNAL_PREFIX
+ip6tables -t mangle -A POSTROUTING --src-prefix $INTERNAL_PREFIX -j SNPT --dst-prefix $EXTERNAL_PREFIX
 
 echo "Updated NPTv6 rules successfully!"
