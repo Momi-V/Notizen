@@ -49,9 +49,24 @@ fi
 echo "Detected IPv6 prefix change: $LAST_PREFIX → $EXTERNAL_PREFIX"
 echo "$EXTERNAL_PREFIX" > "$LAST_PREFIX_FILE"
 
-# Load required kernel module
+# Load required kernel module & set sysctl
 modprobe ip6table_nat
 sysctl -w net.ipv6.conf.all.proxy_ndp=1
+
+# Update ndppd.conf
+pkill ndppd
+cat << "EOL" > /etc/ndppd.conf
+proxy eth4 {
+    router yes
+    timeout 500
+    autowire yes
+
+    rule $EXTERNAL_PREFIX {
+        auto
+    }
+}
+EOL
+ndppd -d
 
 # Remove only the old NPT rules before applying new ones
 if [[ -n "$LAST_PREFIX" ]]; then
