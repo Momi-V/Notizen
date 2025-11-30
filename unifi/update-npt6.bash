@@ -50,16 +50,16 @@ echo "Detected IPv6 prefix change: $LAST_PREFIX → $EXTERNAL_PREFIX"
 echo "$EXTERNAL_PREFIX" > "$LAST_PREFIX_FILE"
 
 # Load required kernel module
-modprobe ip6t_NPT
+modprobe ip6table_nat
 
 # Remove only the old NPT rules before applying new ones
 if [[ -n "$LAST_PREFIX" ]]; then
-    ip6tables -t mangle -D PREROUTING -d $LAST_PREFIX -j NPT --to $INTERNAL_PREFIX 2>/dev/null
-    ip6tables -t mangle -D POSTROUTING -s $INTERNAL_PREFIX -j NPT --to $LAST_PREFIX 2>/dev/null
+    ip6tables -t nat -D PREROUTING -d $LAST_PREFIX -j NETMAP --to $INTERNAL_PREFIX 2>/dev/null
+    ip6tables -t nat -D POSTROUTING -s $INTERNAL_PREFIX -j NETMAP --to $LAST_PREFIX 2>/dev/null
 fi
 
 # Apply updated NPTv6 translation rules
-ip6tables -t mangle -I PREROUTING 0 -d $EXTERNAL_PREFIX -j NPT --to $INTERNAL_PREFIX
-ip6tables -t mangle -I POSTROUTING 0 -s $INTERNAL_PREFIX -j NPT --to $EXTERNAL_PREFIX
+ip6tables -t nat -I PREROUTING 0 -d $EXTERNAL_PREFIX -j NETMAP --to $INTERNAL_PREFIX
+ip6tables -t nat -I POSTROUTING 0 -s $INTERNAL_PREFIX -j NETMAP --to $EXTERNAL_PREFIX
 
 echo "Updated NPTv6 rules successfully!"
