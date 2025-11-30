@@ -55,8 +55,9 @@ sysctl -w net.ipv6.conf.all.proxy_ndp=1
 
 # Update ndppd.conf
 pkill ndppd
-cat << "EOL" > /etc/ndppd.conf
+cat << EOL > /etc/ndppd.conf
 proxy eth4 {
+    iface eth4
     router yes
     timeout 500
     autowire yes
@@ -75,7 +76,7 @@ if [[ -n "$LAST_PREFIX" ]]; then
 fi
 
 # Apply updated NPTv6 translation rules
-ip6tables -t nat -I PREROUTING 0 -d $EXTERNAL_PREFIX -j NETMAP --to $INTERNAL_PREFIX
-ip6tables -t nat -I POSTROUTING 0 -s $INTERNAL_PREFIX -j NETMAP --to $EXTERNAL_PREFIX
+ip6tables -t nat -I PREROUTING 1 -d $EXTERNAL_PREFIX -j NETMAP --to $INTERNAL_PREFIX
+ip6tables -t nat -I POSTROUTING 1 -s $INTERNAL_PREFIX -j NETMAP --to $EXTERNAL_PREFIX
 
 echo "Updated NPTv6 rules successfully!"
