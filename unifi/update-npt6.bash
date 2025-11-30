@@ -51,6 +51,7 @@ echo "$EXTERNAL_PREFIX" > "$LAST_PREFIX_FILE"
 
 # Load required kernel module
 modprobe ip6table_nat
+sysctl -w net.ipv6.conf.all.proxy_ndp=1
 
 # Remove only the old NPT rules before applying new ones
 if [[ -n "$LAST_PREFIX" ]]; then
