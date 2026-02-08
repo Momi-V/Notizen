@@ -1,6 +1,6 @@
 services:
-  noVNC:
-    build: https://github.com/Momi-V/Notizen.git#main:/noVNC
+  novnc:
+    build: https://github.com/Momi-V/Notizen.git#main:/novnc
     container_name: novnc-01
     environment:
       - SERVER=localhost:5900
