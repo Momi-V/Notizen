@@ -1,14 +1,8 @@
 services:
- noVNC:
-  build:
-    context: .
-    dockerfile_inline: |
-      FROM alpine
-      RUN apk add novnc
-      ENV SERVER=localhost:5900
-      CMD ["novnc","--vnc=$SERVER"]
-    container_name: novnc-container
+  noVNC:
+    build: https://github.com/Momi-V/Notizen.git#main:/noVNC
+    container_name: novnc-01
     environment:
-      - SERVER=truenas.lan:5900
-      - TZ=Europe/Berlin
+      - SERVER=localhost:5900
+      - TZ=ETC/UTC
     restart: unless-stopped
