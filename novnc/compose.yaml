@@ -2,6 +2,8 @@ services:
   novnc:
     build: https://github.com/Momi-V/Notizen.git#main:/novnc
     container_name: novnc-01
+    ports:
+      - 6800:6800
     environment:
       - SERVER=localhost:5900
       - TZ=ETC/UTC
