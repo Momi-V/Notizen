@@ -1,0 +1,12 @@
+services:
+  virt-manager:
+    build: .
+    container_name: virt-manager
+    ports:
+      - 5800:5800
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=100
+    restart: unless-stopped
+    volumes:
+      - /var/run/libvirt:/var/run/libvirt:rw
