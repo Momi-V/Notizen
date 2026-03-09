@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname $0)/.dyndns.env
+source /etc/systemd/system/dyndns.env
 
 ipv4=$(curl -4 api4.ipify.org)
 ipv6=$(curl -6 api6.ipify.org)
