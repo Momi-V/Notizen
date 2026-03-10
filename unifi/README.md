@@ -1,6 +1,26 @@
 # Unifi
 Persistent systemd service for enabeling NPTv6 or NAT66 to give ULA VLANs internet access
 
+## DynDNS
+### Install (on device for interactive domain & token read)
+```
+curl -o /etc/systemd/system/dyndns.bash    https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/unifi/dyndns.bash
+curl -o /etc/systemd/system/dyndns.service https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/unifi/dyndns.service
+curl -o /etc/systemd/system/dyndns.timer   https://raw.githubusercontent.com/Momi-V/Notizen/refs/heads/main/unifi/dyndns.timer
+chmod +x /etc/systemd/system/dyndns.bash
+
+read -p "DynDNS Domain: " ZONE
+read -p "Auth Token: " TK
+
+cat <<EOL > /etc/systemd/system/dyndns.env
+ZONE=( $ZONE )
+TK=$TK
+EOL
+
+systemctl daemon-reload
+systemctl enable --now dyndns.timer
+```
+
 ## NAT66 (Simple, works with /64 prefix, no incoming connections possible)
 ### Install (on device)
 ```
@@ -12,7 +32,6 @@ systemctl enable --now NAT66
 ```
 ssh root@unifi "curl -o /etc/systemd/system/NAT66.service https://raw.githubusercontent.com/Momi-V/Notizen/main/unifi/NAT66.service && systemctl enable --now NAT66"
 ```
-
 
 ## NPTv6 (more complex, needs a /60 or /56, external access via local firewall rules)
 ### Install (on device)
