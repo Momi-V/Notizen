@@ -17,7 +17,7 @@ for media in ^*.xmp; do
         -DateCreated \
         "$media" 2>/dev/null)"
 
-    if [[ -n "$existing" ]]; then
+    if [[ -n "$existing" && "$existing" != "0000:00:00 00:00:00" ]]; then
         print "SKIP: $media — already has CreateDate/DateCreated"
         continue
     fi
