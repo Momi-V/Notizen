@@ -3,6 +3,7 @@
 setopt null_glob
 setopt extended_glob
 
+# ---- Phase 1: fehlende Daten aus XMP-Sidecars übernehmen --------------------
 for media in ^*.xmp; do
     base="${media:r}"
     xmp="${base}.xmp"
@@ -30,6 +31,19 @@ for media in ^*.xmp; do
         "-CreateDate<DateCreated" "$media"
 done
 
-rm *.xmp
-exiftool -r "-FileModifyDate<CreateDate" ./*
-exiftool -r "-FileModifyDate<DateCreated" ./*
+mkdir .XMP
+mv *.xmp .XMP/
+
+# ---- Phase 2: mtime aus dem hinterlegten Aufnahmedatum ----------------------
+
+exiftool \
+    "-FileModifyDate<CreateDate" \
+    ./*
+
+exiftool \
+    "-FileModifyDate<DateCreated" \
+    ./*
+
+exiftool \
+    "-FileModifyDate<Keys::CreationDate" \
+    ./*.mov
